@@ -1,0 +1,34 @@
+{
+	"index.html": {
+		"resources": [
+			"order_webview.html",
+			"store_webview.html"
+		],
+		"refer": [
+			"store_webview.html",
+			"order_webview.html"
+		]
+	},
+	"login.html": {
+		"refer": [
+			"index.html"
+		]
+	},
+	"store_webview.html": {
+		"refer": [
+			"store_info.html",
+			"iframe.html"
+		]
+	},
+	"store_info.html": {
+		"refer": [
+			"store_time.html",
+			"store_category.html"
+		]
+	},
+	"iframe.html": {
+		"refer": [
+			"editor.html"
+		]
+	}
+}

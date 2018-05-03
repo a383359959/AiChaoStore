@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/plupload/plupload.full.min.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
+		<script type="text/javascript" src="js/store_info.js"></script>
+	</head>
+	<body>
+		<div id="main">
+			<header>
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<span>商家设置</span>
+				<a href="javascript:;" class="h_right" v-on:tap="submit">保存</a>
+			</header>
+			<div class="h50"></div>
+			<div class="store_info">
+				<ul>
+					<li>
+						<label style="line-height: 70px;">头像</label>
+						<img v-bind:src="logo" id="upload" />
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>名称</label>
+						<input type="text" placeholder="请输入名称" v-model="store_name" />
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>地址</label>
+						<input type="text" placeholder="请输入地址" v-model="address" />
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>分类</label>
+						<span v-if="type_id > 0" v-on:tap="jump('store_category.html')">已完善</span>
+						<span v-if="type_id == 0" class="r" v-on:tap="jump('store_category.html')">未完善</span>
+						<i class="mui-icon mui-icon-arrowright"></i>
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>电话</label>
+						<input type="text" placeholder="请输入电话" v-model="store_phone" />
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>营业时间</label>
+						<span v-if="time_period != null" v-on:tap="jump('store_time.html')">已完善</span>
+						<span v-if="time_period == null" class="r" v-on:tap="jump('store_time.html')">未完善</span>
+						<i class="mui-icon mui-icon-arrowright"></i>
+						<div class="clear"></div>
+					</li>
+					<li>
+						<label>店铺介绍</label>
+						<span v-if="desc != ''" v-on:tap="jump('store_desc.html')">已完善</span>
+						<span v-if="desc == ''" class="r" v-on:tap="jump('store_desc.html')">未完善</span>
+						<i class="mui-icon mui-icon-arrowright"></i>
+						<div class="clear"></div>
+					</li>
+					<!--
+					<li>
+						<label>配送方式</label>
+						<input type="text" disabled="disabled" value="asd" />
+						<div class="clear"></div>
+					</li>
+					-->
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/plupload/plupload.full.min.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
+	</head>
+	<body>
+		<div id="main">
+			<header>
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<span>店铺介绍</span>
+				<a href="javascript:;" class="h_right" v-on:tap="submit">保存</a>
+			</header>
+			<div class="h50"></div>
+			<div class="store_desc">
+				<textarea rows="10" v-model="desc" placeholder="请输入店铺介绍"></textarea>
+			</div>
+		</div>
+		<script type="text/javascript">
+			new Vue({
+				el : '#main',
+				data : {
+					desc : ''
+				},
+				mounted : function(){
+					this.loadData();
+				},
+				methods : {
+					loadData : function(){
+						var obj = this;
+						var option = {
+							store_id : cache('store_id'),
+						}
+						loading(0);
+						sendAjax('User/getDesc',option,function(result){
+							result.desc = obj.desc;
+							loading(1);
+						},false);
+					},
+					submit : function(){
+						var option = {
+							store_id : cache('store_id'),
+							desc : this.desc
+						}
+						sendAjax('User/setDesc',option,function(result){
+							if(result.status == 'success'){
+								var store_info = plus.webview.getWebviewById('store_info.html');
+								if(store_info != null) mui.fire(store_info,'reload');
+								plus.webview.currentWebview().close();
+							}
+						});
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

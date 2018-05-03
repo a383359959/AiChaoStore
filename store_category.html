@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+	</head>
+	<body>
+		<div id="main">
+			<header>
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<span>选择分类</span>
+			</header>
+			<div class="h50"></div>
+			<div class="category">
+				<ul>
+					<template v-for="(value,key) in list">
+					<li>
+						<a href="javascript:;" v-on:tap="show(key)">{{value.name}}</a>
+						<i class="mui-icon mui-icon-arrowup"></i>
+						<div class="category_menu">
+						<template v-for="(v,k) in value.child">
+						<a href="javascript:;" v-on:tap="select(v.id)">{{v.name}}</a>
+						</template>
+						</div>
+					</li>
+					</template>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				new Vue({
+					el : '#main',
+					data : {
+						list : []
+					},
+					mounted : function(){
+						this.loadData();
+					},
+					methods : {
+						loadData : function(){
+							var obj = this;
+							loading(0);
+							sendAjax('User/getCategory',null,function(result){
+								obj.list = result.list;
+								loading(1);
+							},false);
+						},
+						show : function(key){
+							$('.category_menu').hide();
+							$('.category li i').attr('class','mui-icon mui-icon-arrowup');
+							$('.category li').eq(key).find('.category_menu').show();
+							$('.category li').eq(key).find('i').attr('class','mui-icon mui-icon-arrowdown');
+						},
+						select : function(id){
+							var webview = plus.webview.getWebviewById('store_info.html');
+							if(webview != null){
+								mui.fire(webview,'selectCategory',{
+									id : id
+								});
+								plus.webview.currentWebview().close();
+							}
+						}
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

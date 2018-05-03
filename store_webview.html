@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/dropload.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/dropload.min.js"></script>
+		<script type="text/javascript" src="js/template.js"></script>	
+		<script type="text/javascript" src="js/init.js"></script>
+		<script type="text/javascript" src="js/store_webview.js"></script>
+		<style>
+			body,html{
+				background: #f0f0f0;
+			}
+			.loading{
+				top: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<header>
+				<span>店铺管理</span>
+				<!--<a href="javascript:;" class="h_right" v-on:tap="pay">充值</a>-->
+			</header>
+			<div class="h50"></div>
+			<div class="store_header">
+				<div class="store_header_logo"><img v-bind:src="logo" v-on:tap="store_info" /></div>
+				<div class="store_name" v-on:tap="store_info">
+					<h1 v-if="store_name != ''">{{store_name}}</h1>
+					<h1 v-if="store_name == ''">请先完善信息</h1>
+					<p>点击查看门店详情</p>
+				</div>
+				<div class="store_kaiguan">
+					<i class="mui-icon mui-icon-arrowdown"></i>
+					<select v-model="business_status" v-on:change="change_business_status">
+						<option value="0">营业中</option>
+						<option value="1">休息中_自动</option>
+						<option value="2">休息中_手动</option>
+					</select>
+				</div>
+			</div>
+			<div class="store_kaiguan_main">
+				<div class="store_data">
+					<h1>经营数据</h1>
+					<ul>
+						<li v-on:tap="links('Data/index')">
+							<h2>今日营业额</h2>
+							<p>{{today_price}}</p>
+							<p>昨日&nbsp;{{yestoday_price}}</p>
+						</li>
+						<li v-on:tap="links('Data/index')">
+							<h2>今日订单</h2>
+							<p>{{today_order}}</p>
+							<p>昨日&nbsp;{{yestoday_order}}</p>
+						</li>
+						<li v-on:tap="links('Data/index')">
+							<h2>账户余额</h2>
+							<p>{{today_balance}}</p>
+							<p>昨日&nbsp;{{yestoday_balance}}</p>
+						</li>
+						<div class="clear"></div>
+					</ul>
+				</div>
+				<div class="store_tool">
+					<h1>服务市场</h1>
+					<table>
+						<tr>
+							<td v-on:tap="links('Service/activity')">
+								<div class="store_tool_item">
+									<a href="javascript:;">
+										<img src="images/huodong.png" />
+										<p>营销活动</p>
+									</a>
+								</div>
+							</td>
+							<td v-on:tap="links('Service/seo')">
+								<div class="store_tool_item">
+									<img src="images/tuiguang.png" />
+									<p>店铺推广</p>
+								</div>
+							</td>
+							<td>
+								<div class="store_tool_item">
+									<a href="javascript:;" v-on:tap="links('Service/goods')">
+										<img src="images/shangpin.png" />
+										<p>商品编辑</p>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<a href="javascript:;" class="logout" v-on:tap="logout">退出登录</a>
+		</div>
+	</body>
+</html>

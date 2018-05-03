@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/plupload/plupload.full.min.js"></script>
+		<script type="text/javascript" src="js/vue.min.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
+		<style type="text/css">
+			body,html{
+				background: #f0f0f0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<header>
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<span>充值</span>
+			</header>
+			<div class="h50"></div>
+			<div class="pay">
+				<ul>
+					<li>
+						<span>充值金额</span>
+						<input type="text" placeholder="请输入充值金额" v-model="price" />
+						<div class="clear"></div>
+					</li>
+				</ul>
+				<a href="javascript:;" class="logout" v-on:tap="submit">微信充值</a>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				new Vue({
+					el : '#main',
+					data : {
+						price : ''
+					},
+					mounted : function(){
+						plus.payment.getChannels(function(channels){
+							
+						});
+					},
+					methods : {
+						submit : function(){
+							if(this.price == ''){
+								plus.nativeUI.alert('请输入充值金额！',null,'提示','确定');
+							}else if(this.price <= 0){
+								plus.nativeUI.alert('请输入充值必须大于0！',null,'提示','确定');
+							}
+						}
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
